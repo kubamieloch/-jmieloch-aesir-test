@@ -12,7 +12,7 @@ This directory builds and publishes a minimal token package with:
 
 1. Push this directory as a separate GitHub repository.
 2. Set package name in `package.json`:
-   - use scoped name matching repository owner, e.g. `@jmieloch/aesir-test`.
+   - use scoped name matching repository owner, e.g. `@kubamieloch/aesir-test`.
 3. Keep repository default branch as `main`.
 
 GitHub Actions included:
@@ -31,13 +31,13 @@ npm run pack:local
 Then consume in another app:
 
 ```css
-@import '@jmieloch/aesir-test/presets/tailwind.css';
+@import '@kubamieloch/aesir-test/presets/tailwind.css';
 ```
 
 or
 
 ```css
-@import '@jmieloch/aesir-test/presets/vars.css';
+@import '@kubamieloch/aesir-test/presets/vars.css';
 ```
 
 ## Publish flow (GitHub Packages)
@@ -58,7 +58,7 @@ git push origin v0.1.0
 In consumer project `.npmrc`:
 
 ```ini
-@jmieloch:registry=https://npm.pkg.github.com
+@kubamieloch:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${NPM_TOKEN}
 ```
 
@@ -67,7 +67,7 @@ In consumer `package.json`:
 ```json
 {
 	"dependencies": {
-		"@jmieloch/aesir-test": "^0.1.0"
+		"@kubamieloch/aesir-test": "^0.1.0"
 	}
 }
 ```

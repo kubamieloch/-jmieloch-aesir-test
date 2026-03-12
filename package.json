@@ -1,5 +1,5 @@
 {
-	"name": "@jmieloch/aesir-test",
+	"name": "@kubamieloch/aesir-test",
 	"version": "0.1.0",
 	"type": "module",
 	"description": "Design token package (CSS variables + Tailwind theme tokens)",
