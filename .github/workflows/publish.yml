@@ -1,0 +1,49 @@
+name: Publish Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@${{ github.repository_owner }}'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate package and build outputs
+        run: npm run publish:check
+
+      - name: Ensure package scope matches repository owner
+        run: |
+          set -euo pipefail
+          OWNER="${{ github.repository_owner }}"
+          PKG_NAME="$(node -p "require('./package.json').name")"
+          PKG_SCOPE="${PKG_NAME#@}"
+          PKG_SCOPE="${PKG_SCOPE%%/*}"
+          if [ "$PKG_SCOPE" != "$OWNER" ]; then
+            echo "Package scope @$PKG_SCOPE must match repository owner @$OWNER for GitHub Packages."
+            exit 1
+          fi
+
+      - name: Publish to GitHub Packages
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

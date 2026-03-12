@@ -1,0 +1,8 @@
+node_modules
+
+# generated
+/dist
+
+# local npm auth
+.npmrc
+.npmrc.publish
